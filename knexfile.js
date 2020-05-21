@@ -15,7 +15,7 @@ module.exports = {
       }
     },
     migrations: {
-      directory: './database/migrations',
+      directory: './data/migrations',
       tableName: 'db_migrations',
     },
   },
@@ -33,7 +33,7 @@ module.exports = {
       },
     },
     migrations: {
-      directory: './database/migrations-test',
+      directory: './data/migrations-test',
       tableName: 'db_migrations-test',
     },
   },
