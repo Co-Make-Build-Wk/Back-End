@@ -19,11 +19,11 @@ exports.up = function (knex) {
             tbl.text('description', 128).notNullable();
             tbl.text('address', 128).notNullable();
             tbl.timestamps(true, true);
-            tbl.boolean('is_fixed').defaultTo(false);
+            tbl.boolean('is_fixed').notNullable().defaultTo(false);
         })
         .createTable('area', tbl => {
             tbl.increments();
-            tbl.text('location', 128).notNullable();
+            tbl.text('neighborhood', 128).notNullable();
         })
         .createTable('post_area', tbl => {
             tbl.integer('post_id')
