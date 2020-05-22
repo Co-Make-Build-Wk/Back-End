@@ -10,10 +10,6 @@ router.post('/register', async (req, res, next) => {
             return res.status(400).json({
                 message: 'Please create an account',
             });
-        } else if(!req.body.name){
-            return res.status(400).json({
-                message: 'Please enter name',
-            });
         } else if (!req.body.username) {
             return res.status(400).json({
                 message: 'Please create a username',

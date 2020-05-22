@@ -11,7 +11,7 @@ module.exports = function auth() {
         try {
             if (!req.session || !req.session.user) {
                 // if no session id || no session with a user
-                return res.status(401).json(authError);
+                return res.status(401).json(authErr);
             } else {
                 next();
             };

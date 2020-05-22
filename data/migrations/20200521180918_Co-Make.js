@@ -3,7 +3,6 @@ exports.up = function (knex) {
     return knex.schema
         .createTable('users', tbl => {
             tbl.increments();
-            tbl.text('name', 128).notNullable();
             tbl.text('username', 128).notNullable().unique();
             tbl.text('password', 128).notNullable();
         })
@@ -17,13 +16,16 @@ exports.up = function (knex) {
                 .onUpdate('CASCADE')
             tbl.text('issue', 128).notNullable();
             tbl.text('description', 128).notNullable();
-            tbl.text('address', 128).notNullable();
+            tbl.text('street_address', 128).notNullable();
             tbl.timestamps(true, true);
             tbl.boolean('is_fixed').notNullable().defaultTo(false);
         })
         .createTable('area', tbl => {
             tbl.increments();
-            tbl.text('neighborhood', 128).notNullable();
+            tbl.text('neighborhood');
+            tbl.text('city', 128).notNullable();
+            tbl.text('state', 128).notNullable();
+            tbl.text('zip_code', 128).notNullable();
         })
         .createTable('post_area', tbl => {
             tbl.integer('post_id')
@@ -45,8 +47,8 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
     return knex.schema
-        .dropTableIfExits('post_area')
-        .dropTableIfExits('area')
-        .dropTableIfExits('posts')
-        .dropTableIfExits('users');
+        .dropTableIfExists('post_area')
+        .dropTableIfExists('area')
+        .dropTableIfExists('posts')
+        .dropTableIfExists('users');
 };

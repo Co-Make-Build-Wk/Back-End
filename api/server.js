@@ -4,11 +4,13 @@ const cors= require('cors');
 const session= require('express-session');
 const knexSessionStore = require('connect-session-knex')(session);
 const db_config = require('../data/db_config.js');
+const authenticate= require('../auth/auth-middleware.js');
 
 const server= express();
 
 const welcome_route= require('../Welcome/welcome-router.js');
 const auth_route= require('../auth/auth-router.js');
+const post_route= require('../posts/post-router.js');
 
 // middleware
 server.use(express.json());
@@ -33,6 +35,7 @@ server.use(session({
 // routes
 server.use('/', welcome_route);
 server.use('/api/auth', auth_route);
+server.use('/api/posts', authenticate(), post_route);
 
 // handles no supported route
 server.use((req, res) => {
