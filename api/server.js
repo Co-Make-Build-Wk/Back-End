@@ -9,8 +9,9 @@ const authenticate= require('../auth/auth-middleware.js');
 const server= express();
 
 const welcome_route= require('../Welcome/welcome-router.js');
-const auth_route= require('../auth/auth-router.js');
+const register_login_route= require('../auth/auth-router.js');
 const post_route= require('../posts/post-router.js');
+const userPost_route= require('../user_posts/userPost-router.js');
 
 // middleware
 server.use(express.json());
@@ -34,8 +35,9 @@ server.use(session({
 
 // routes
 server.use('/', welcome_route);
-server.use('/api/auth', auth_route);
+server.use('/api/auth', register_login_route);
 server.use('/api/posts', authenticate(), post_route);
+server.use('/api/user', authenticate(), userPost_route);
 
 // handles no supported route
 server.use((req, res) => {
