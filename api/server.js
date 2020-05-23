@@ -19,7 +19,7 @@ server.use(helmet());
 server.use(cors());
 // creating session object
 server.use(session({
-    name: 'token', // overwrites the default cookie name, keeps our stack safe
+    name: process.env.COOKIE || 'payload', // overwrites the default cookie name, keeps our stack safe
     resave: false, // avoids recreating sessions that have not changed
     saveUninitialized: false, // GDPR laws, against setting cookies automatically
     secret: process.env.COOKIE_SECRET || 'secret', // cryptographically sign the cookie

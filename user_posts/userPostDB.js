@@ -51,8 +51,8 @@ async function create(postinfo, areainfo) {
         // insert ids to the intermediary table
         await db('post_area')
             .insert({
-                post_id: postId, // is id of object since it was destructured above
-                area_id: areaId, // is id of object since it was destructured above
+                post_id: postId, // is the id of object since it was destructured above
+                area_id: areaId, // is the id of object since it was destructured above
             });
 
         // return the newly created post to the router
@@ -60,7 +60,6 @@ async function create(postinfo, areainfo) {
     } catch (err) {
         // if there's an error, console log it and return nothing to the router
         console.log('create error', err)
-        next(err);
     };
 };
 
