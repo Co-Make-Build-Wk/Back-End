@@ -9,7 +9,7 @@ exports.seed = function(knex) {
           issue: 'Lambda Curriculum',
           user_id: 1,
           description: 'Lambda School is way too fun',
-          address: '15 Lamba Street, Lambda, SF, 11111',
+          street_address: '15 Lamba Street, Lambda, SF, 11111',
           is_fixed: false,
         },
       ]);

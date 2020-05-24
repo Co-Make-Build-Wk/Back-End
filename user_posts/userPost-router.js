@@ -29,12 +29,12 @@ router.post('/:id/posts', async (req, res, next) => { // not working
             zip_code: req.body.zip_code
         }
 
-        console.log('payload:', payload1);
+        // console.log('payload:', payload1);
 
         const newPost= await db.create(payload1, payload2);
         console.log(newPost);
         if (req.params.id) {
-            console.log('newpost:', newPost);
+            // console.log('newpost:', newPost);
             res.status(201).json(newPost);
         } else {
             res.status(404).json({

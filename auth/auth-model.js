@@ -20,10 +20,29 @@ function fetchBy(filter) {
         .where(filter);
 };
 
-async function register(user) {
-    // hash the password with a time complexity of 14 
-    user.password = await bcrypt.hash(user.password, 14);
+async function register(usernameInfo, user) {
 
-    const [id] = await db('users').insert(user);
-    return fetchById(id);
+    let {username, password}= usernameInfo
+    let {firstName, lastName}= user;
+
+    try {
+        // hash the password with a time complexity of 14 
+        password = await bcrypt.hash(password, 14);
+
+        // inserting both username and user firstname and lastname into DB
+
+        const [userid] = await db('user').insert({ firstName, lastName })
+        const [id] = await db('users')
+            .insert({ 
+             username,
+             password, 
+             user_id: userid 
+            });
+
+        return fetchById(id);
+
+    } catch (err) {
+        console.log('DB register error:', err);
+    };
+
 };

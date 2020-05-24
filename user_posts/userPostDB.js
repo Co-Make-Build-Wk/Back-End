@@ -48,7 +48,7 @@ async function create(postinfo, areainfo) {
         // const ids = await db('area').insert({ neighborhood, city, state, zip_code })
         // const areaId = ids[0]
 
-        // insert ids to the intermediary table
+        // insert ids to the intermediary table (connecting)
         await db('post_area')
             .insert({
                 post_id: postId, // is the id of object since it was destructured above

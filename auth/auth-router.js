@@ -6,9 +6,30 @@ const authenticate = require('./auth-middleware.js');
 router.post('/register', async (req, res, next) => {
     // implement registration
     try {
+
+        // goes into users table
+        const payload1= {
+            username: req.body.username,
+            password: req.body.password,
+        };
+
+        // goes into user table
+        const payload2= {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+        };
+
         if (!req.body) {
             return res.status(400).json({
-                message: 'Please create an account',
+                message: 'Please add user information',
+            });
+        } else if (!req.body.firstName) {
+            return res.status(400).json({
+                message: 'Please enter first name',
+            });
+        } else if (!req.body.firstName) {
+            return res.status(400).json({
+                message: 'Please enter last name',
             });
         } else if (!req.body.username) {
             return res.status(400).json({
@@ -32,7 +53,8 @@ router.post('/register', async (req, res, next) => {
             });
         };
 
-        const newUser = await db.register(req.body);
+        const newUser = await db.register(payload1, payload2);
+        console.log(newUser);
         res.status(201).json(newUser);
     } catch (err) {
         console.log('Registering:', err)
