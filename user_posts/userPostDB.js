@@ -36,6 +36,7 @@ async function create(postinfo, areainfo) {
     try {
         // insert post and get back id as postId using array destructuring to get the first id
 
+        // 1st insert
         const [postId] = await db('posts').insert({ user_id, issue, description, street_address })
         // same as
         // const ids = await db('posts').insert({ user_id, issue, description, street_address })
@@ -43,11 +44,13 @@ async function create(postinfo, areainfo) {
 
         // insert area and get back id as areaId using array destructuring to get the first id
 
+        // 2nd insert
         const [areaId] = await db('area').insert({ neighborhood, city, state, zip_code });
         // same as
         // const ids = await db('area').insert({ neighborhood, city, state, zip_code })
         // const areaId = ids[0]
 
+        // 3rd insert
         // insert ids to the intermediary table (connecting)
         await db('post_area')
             .insert({

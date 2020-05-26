@@ -23,7 +23,7 @@ function fetchBy(filter) {
 async function register(usernameInfo, user) {
 
     let {username, password}= usernameInfo
-    let {firstName, lastName}= user;
+    let {firstName, lastName, email}= user;
 
     try {
         // hash the password with a time complexity of 14 
@@ -31,7 +31,7 @@ async function register(usernameInfo, user) {
 
         // inserting both username and user firstname and lastname into DB
 
-        const [userid] = await db('user').insert({ firstName, lastName })
+        const [userid] = await db('user').insert({ firstName, lastName, email })
         const [id] = await db('users')
             .insert({ 
              username,

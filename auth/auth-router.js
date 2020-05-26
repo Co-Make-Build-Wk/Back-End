@@ -17,6 +17,7 @@ router.post('/register', async (req, res, next) => {
         const payload2= {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            email: req.body.email
         };
 
         if (!req.body) {
@@ -27,9 +28,13 @@ router.post('/register', async (req, res, next) => {
             return res.status(400).json({
                 message: 'Please enter first name',
             });
-        } else if (!req.body.firstName) {
+        } else if (!req.body.lastName) {
             return res.status(400).json({
                 message: 'Please enter last name',
+            });
+        } else if (!req.body.email) {
+            return res.status(400).json({
+                message: 'Please enter your email',
             });
         } else if (!req.body.username) {
             return res.status(400).json({
@@ -86,6 +91,7 @@ router.post('/login', async (req, res, next) => {
             username: req.body.username,
         }).first();
 
+        // if no user is found stored in db, forbid them from logging in
         if (!user) {
             return res.status(401).json(authErr.username); // 401 forbidden
         };
