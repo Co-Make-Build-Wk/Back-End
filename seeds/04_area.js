@@ -6,7 +6,10 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('area').insert([
         {
-          neighborhood: 'Lambda Zone',
+          neighborhood: 'Lambda Creek',
+          city: 'San Juan',
+          state: 'California',
+          zip_code: '11111',
         },
       ]);
     });

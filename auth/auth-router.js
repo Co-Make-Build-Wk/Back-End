@@ -110,6 +110,10 @@ router.post('/login', async (req, res, next) => {
 
         // create a new session for the user and saves it in memory
 
+        if(req.session.user){
+            return res.json('You are already logged in');
+        };
+
         req.session.user = user;
 
         res.json({

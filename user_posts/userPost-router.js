@@ -16,7 +16,7 @@ router.post('/:id/posts', async (req, res, next) => { // not working
     try {
 
         const payload1= { // for posts table
-            user_id: req.params.id, // just user id
+            users_id: req.params.id, // just user id
             issue: req.body.issue,
             description: req.body.description,
             street_address: req.body.street_address,

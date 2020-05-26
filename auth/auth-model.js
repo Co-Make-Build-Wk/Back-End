@@ -8,9 +8,11 @@ module.exports = {
 };
 
 function fetchById(id) {
-    return db('users')
-        .select('id', 'username')
-        .where('id', id)
+    return db
+        .select('users.id', 'users.username', 'user.email', 'user.firstName', 'user.lastName')
+        .from('users')
+        .join('user', 'users.user_id', 'user.id')
+        .where('users.id', id)
         .first();
 };
 

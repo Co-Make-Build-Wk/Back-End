@@ -12,21 +12,21 @@ async function fetch(user_id) { // works
     return await db
         .select('posts.id', 'users.username', 'posts.issue', 'posts.description', 'posts.street_address', 'posts.created_at', 'posts.is_fixed')
         .from('posts')
-        .join('users', 'posts.user_id', 'users.id')
-        .where('posts.user_id', user_id);
+        .join('users', 'posts.users_id', 'users.id')
+        .where('posts.users_id', user_id);
 };
 
 function fetchById(userid, postid) {
     return db
         .select('posts.id', 'users.username', 'posts.issue', 'posts.description', 'posts.street_address', 'posts.created_at', 'posts.is_fixed')
         .from('posts')
-        .join('users', 'posts.user_id', 'users.id')
-        .where('posts.user_id', userid)
+        .join('users', 'posts.users_id', 'users.id')
+        .where('posts.users_id', userid)
         .where('posts.id', postid);
 };
 
 async function create(postinfo, areainfo) {
-    const { user_id, issue, description, street_address } = postinfo
+    const { users_id, issue, description, street_address } = postinfo
     const { neighborhood, city, state, zip_code } = areainfo
 
     // 1. creating post
@@ -37,7 +37,7 @@ async function create(postinfo, areainfo) {
         // insert post and get back id as postId using array destructuring to get the first id
 
         // 1st insert
-        const [postId] = await db('posts').insert({ user_id, issue, description, street_address })
+        const [postId] = await db('posts').insert({ users_id, issue, description, street_address })
         // same as
         // const ids = await db('posts').insert({ user_id, issue, description, street_address })
         // const postId = ids[0]

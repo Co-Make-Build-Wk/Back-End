@@ -9,6 +9,14 @@ exports.seed = function(knex) {
           post_id: 1,
           area_id: 1,
         },
+        {
+          post_id: 2,
+          area_id: 1,
+        },
+        {
+          post_id: 3,
+          area_id: 1,
+        },
       ]);
     });
 };
