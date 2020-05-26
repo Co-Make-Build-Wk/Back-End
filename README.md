@@ -125,6 +125,14 @@ Example reponse
 }
 ```
 
+**401 (Forbidden)**
+
+```
+{
+    "message": "You will receive a message if either username is not found or incorrect password"
+}
+```
+
 **500 (Bad Request)**
 
 ```
