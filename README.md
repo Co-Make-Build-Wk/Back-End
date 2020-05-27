@@ -155,3 +155,65 @@ Example reponse
 ```
 
 HTTP Method: [**GET**]
+
+#### Response
+
+**200 (OK)**
+
+Example reponse
+
+```
+  "id": 1,
+  "username": "jhawkings0",
+  "issue": "Lambda Driveway",
+  "description": "Major pothole in middle lane",
+  "street_address": "15 Lambda Street",
+  "neighborhood": "Lambda Creek",
+  "created_at": "2020-05-26 23:01:13",
+  "is_fixed": 0
+
+  "id": 2,
+  "username": "pvanderveldt1",
+  "issue": "Lambda Park",
+  "description": "Swings at park are getting loose",
+  "street_address": "25 Lambda Street",
+  "neighborhood": "Lambda Creek",
+  "created_at": "2020-05-26 23:01:13",
+  "is_fixed": 0
+```
+
+**401 (Forbidden)**
+
+```
+{
+    "message": "Please login or create account"
+}
+```
+
+---
+
+### Get a single post
+
+ at `endpoint`: 
+```
+/api/posts/1
+```
+
+HTTP Method: [**GET**]
+
+#### Response
+
+**200 (OK)**
+
+Example reponse
+
+```
+  "id": 1,
+  "username": "jhawkings0",
+  "issue": "Lambda Driveway",
+  "description": "Major pothole in middle lane",
+  "street_address": "15 Lambda Street",
+  "neighborhood": "Lambda Creek",
+  "created_at": "2020-05-26 23:01:13",
+  "is_fixed": 0
+```
