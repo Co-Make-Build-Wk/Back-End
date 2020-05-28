@@ -3,6 +3,7 @@ const db= require('../data/db_config.js');
 module.exports= {
     fetch,
     fetchById,
+    validatePostId,
 };
 
 async function fetch() { // works
@@ -17,6 +18,10 @@ async function fetch() { // works
         console.log(err);
         err;
     }
+};
+
+function validatePostId(id){
+    return db('posts').where('id', id).first();
 };
 
 function fetchById(id){ // works

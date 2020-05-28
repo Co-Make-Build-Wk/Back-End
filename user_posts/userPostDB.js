@@ -6,23 +6,43 @@ module.exports = {
     create,
     update,
     destroy,
+    validateUserExists,
+    validatePostExists
 };
 
 async function fetch(user_id) { // works
-    return await db
-        .select('posts.id', 'users.username', 'posts.issue', 'posts.description', 'posts.street_address', 'posts.created_at', 'posts.is_fixed')
-        .from('posts')
-        .join('users', 'posts.users_id', 'users.id')
-        .where('posts.users_id', user_id);
+    try {
+        return await db
+            .select('posts.id', 'users.username', 'posts.issue', 'posts.description', 'posts.street_address', 'posts.created_at', 'posts.is_fixed')
+            .from('posts')
+            .join('users', 'posts.users_id', 'users.id')
+            .where('posts.users_id', user_id);
+    } catch (err) {
+        console.log('fetch posts err:', err);
+    }
 };
 
 function fetchById(userid, postid) {
-    return db
-        .select('posts.id', 'users.username', 'posts.issue', 'posts.description', 'posts.street_address', 'posts.created_at', 'posts.is_fixed')
-        .from('posts')
-        .join('users', 'posts.users_id', 'users.id')
-        .where('posts.users_id', userid)
-        .where('posts.id', postid);
+
+    try {
+        return db
+            .select('posts.id', 'users.username', 'posts.issue', 'posts.description', 'posts.street_address', 'posts.created_at', 'posts.is_fixed')
+            .from('posts')
+            .join('users', 'posts.users_id', 'users.id')
+            .where('posts.users_id', userid)
+            .where('posts.id', postid);
+        
+    } catch (err) {
+        console.log('fetchbyId err:', err)
+    }
+};
+
+function validateUserExists(id){
+    return db('users').where('id', id).first();
+};
+
+function validatePostExists(id) {
+    return db('posts').where('id', id).first();
 };
 
 async function create(postinfo, areainfo) {
@@ -62,17 +82,37 @@ async function create(postinfo, areainfo) {
         return await db('posts').where("id", postId)
     } catch (err) {
         // if there's an error, console log it and return nothing to the router
-        console.log('create error', err)
+        console.log('error posting:', err)
     };
 };
 
-function update(userid, postid) {
+async function update(updatedPostInfo, updatedAreaInfo, userid, postid) {
+    const { issue, description, street_address } = updatedPostInfo
+    const { neighborhood, city, state, zip_code } = updatedAreaInfo
 
+    try {
+        const updatedPost= await db('posts').update({issue, description, street_address}).where('id', postid);
+
+        const updatedArea = await db('area').update({ neighborhood, city, state, zip_code }).where('id', postid);
+
+        await db('post_area')
+            .insert({
+                post_id: updatedPost, 
+                area_id: updatedArea, 
+            });
+
+        return await db('posts').where('id', userid);
+        
+    } catch (err) {
+        console.log('Error updating:', err);
+    };
 };
 
 function destroy(userid, postid) {
-    return db('posts')
-        .where({ id })
-        .del();
+    try {
+        
+    } catch (err) {
+        console.log('Error deleting:', err);
+    }
 };
 
