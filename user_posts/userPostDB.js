@@ -87,11 +87,11 @@ async function create(postinfo, areainfo) {
 };
 
 async function update(updatedPostInfo, updatedAreaInfo, userid, postid) {
-    const { issue, description, street_address } = updatedPostInfo
+    const { issue, description, street_address, is_fixed, updated_at } = updatedPostInfo
     const { neighborhood, city, state, zip_code } = updatedAreaInfo
 
     try {
-        const updatedPost= await db('posts').update({issue, description, street_address}).where('id', postid);
+        const updatedPost = await db('posts').update({ issue, description, street_address, is_fixed, updated_at}).where('id', postid);
 
         const updatedArea = await db('area').update({ neighborhood, city, state, zip_code }).where('id', postid);
 

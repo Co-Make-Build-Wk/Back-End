@@ -58,7 +58,9 @@ router.post('/:id/posts', async (req, res, next) => {
 
 router.put('/:id/posts/:postid', async (req, res, next) => {
 
-    const user = await db.validateUserExists(req.params.id);
+    const {id, postid}= req.params;
+
+    const user = await db.validateUserExists(id);
 
     if (!user) {
         return res.status(404).json({
@@ -71,7 +73,8 @@ router.put('/:id/posts/:postid', async (req, res, next) => {
         issue: req.body.issue,
         description: req.body.description,
         street_address: req.body.street_address,
-        is_fixed: req.body.is_fixed
+        is_fixed: req.body.is_fixed,
+        updated_at: req.body.updated_at
     };
 
     const payload2 = { // for area table
@@ -81,7 +84,7 @@ router.put('/:id/posts/:postid', async (req, res, next) => {
         zip_code: req.body.zip_code
     };
 
-    const updatedPost = await db.update(payload1, payload2, user, req.params.id);
+    const updatedPost = await db.update(payload1, payload2, id, postid);
     console.log(updatedPost);
     res.json(updatedPost);
 
