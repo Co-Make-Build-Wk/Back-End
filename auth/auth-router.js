@@ -6,9 +6,35 @@ const authenticate = require('./auth-middleware.js');
 router.post('/register', async (req, res, next) => {
     // implement registration
     try {
+
+        // goes into users table
+        const payload1= {
+            username: req.body.username,
+            password: req.body.password,
+        };
+
+        // goes into user table
+        const payload2= {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email
+        };
+
         if (!req.body) {
             return res.status(400).json({
-                message: 'Please create an account',
+                message: 'Please add user information',
+            });
+        } else if (!req.body.firstName) {
+            return res.status(400).json({
+                message: 'Please enter first name',
+            });
+        } else if (!req.body.lastName) {
+            return res.status(400).json({
+                message: 'Please enter last name',
+            });
+        } else if (!req.body.email) {
+            return res.status(400).json({
+                message: 'Please enter your email',
             });
         } else if (!req.body.username) {
             return res.status(400).json({
@@ -32,7 +58,8 @@ router.post('/register', async (req, res, next) => {
             });
         };
 
-        const newUser = await db.register(req.body);
+        const newUser = await db.register(payload1, payload2);
+        console.log(newUser);
         res.status(201).json(newUser);
     } catch (err) {
         console.log('Registering:', err)
@@ -64,6 +91,7 @@ router.post('/login', async (req, res, next) => {
             username: req.body.username,
         }).first();
 
+        // if no user is found stored in db, forbid them from logging in
         if (!user) {
             return res.status(401).json(authErr.username); // 401 forbidden
         };
@@ -82,11 +110,16 @@ router.post('/login', async (req, res, next) => {
 
         // create a new session for the user and saves it in memory
 
-        req.session.user = user;
+        if(req.session.user){
+            return res.json('You are already logged in');
+        } else{
 
-        res.json({
-            message: `Welcome ${user.username}!`
-        });
+            req.session.user = user;
+
+            res.json({
+                message: `Welcome ${user.username}!`
+            });
+        };
 
     } catch (err) {
         console.log('Login:', err)

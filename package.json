@@ -11,6 +11,7 @@
     "express-session": "^1.17.1",
     "helmet": "^3.22.0",
     "knex": "^0.21.1",
+    "pg": "^8.2.1",
     "sqlite3": "^4.2.0"
   },
   "devDependencies": {
@@ -23,7 +24,7 @@
   "scripts": {
     "server": "cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env NODE_ENV=testing jest --watch",
-    "start": "cross-env NODE_ENV=production node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

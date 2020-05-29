@@ -1,14 +1,26 @@
 
 exports.up = function (knex) {
     return knex.schema
+        .createTable('user', tbl => {
+            tbl.increments();
+            tbl.text('firstName', 128).notNullable();
+            tbl.text('lastName', 128).notNullable();
+            tbl.text('email', 128).notNullable().unique();
+        })
         .createTable('users', tbl => {
             tbl.increments();
             tbl.text('username', 128).notNullable().unique();
             tbl.text('password', 128).notNullable();
+            tbl.integer('user_id')
+                .unsigned()
+                .references('id')
+                .inTable('user')
+                .onDelete('CASCADE')
+                .onUpdate('CASCADE')
         })
         .createTable('posts', tbl => {
             tbl.increments();
-            tbl.integer('user_id')
+            tbl.integer('users_id')
                 .unsigned()
                 .references('id')
                 .inTable('users')
@@ -50,5 +62,6 @@ exports.down = function (knex) {
         .dropTableIfExists('post_area')
         .dropTableIfExists('area')
         .dropTableIfExists('posts')
-        .dropTableIfExists('users');
+        .dropTableIfExists('users')
+        .dropTableIfExists('user');
 };
