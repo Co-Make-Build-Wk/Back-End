@@ -96,7 +96,7 @@ async function update(updatedPostInfo, updatedAreaInfo, userid, postid) {
         const updatedArea = await db('area').update({ neighborhood, city, state, zip_code }).where('id', postid);
 
         await db('post_area')
-            .insert({
+            .update({
                 post_id: updatedPost, 
                 area_id: updatedArea, 
             });
