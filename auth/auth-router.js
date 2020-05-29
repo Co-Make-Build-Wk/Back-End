@@ -112,13 +112,14 @@ router.post('/login', async (req, res, next) => {
 
         if(req.session.user){
             return res.json('You are already logged in');
+        } else{
+
+            req.session.user = user;
+
+            res.json({
+                message: `Welcome ${user.username}!`
+            });
         };
-
-        req.session.user = user;
-
-        res.json({
-            message: `Welcome ${user.username}!`
-        });
 
     } catch (err) {
         console.log('Login:', err)

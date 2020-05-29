@@ -14,6 +14,7 @@ async function fetch() { // works
             .join('posts', 'post_area.post_id', 'posts.id')
             .join('users', 'users.id', 'posts.users_id')
             .join('area','post_area.area_id', 'area.id');
+            
     } catch (err) {
         console.log(err);
         err;

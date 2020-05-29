@@ -111,7 +111,6 @@ async function update(updatedPostInfo, updatedAreaInfo, userid, postid) {
 async function destroy(userid, postid) {
     try {
         await db('posts').where('id', postid).del();
-        await db('area').where('id', postid).del();
     } catch (err) {
         console.log('Error deleting:', err);
     }
