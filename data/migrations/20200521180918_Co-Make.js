@@ -24,7 +24,7 @@ exports.up = function (knex) {
                 .unsigned()
                 .references('id')
                 .inTable('users')
-                .onDelete('CASCADE')
+                .onDelete('CASCADE') 
                 .onUpdate('CASCADE')
             tbl.text('issue', 128).notNullable();
             tbl.text('description', 128).notNullable();

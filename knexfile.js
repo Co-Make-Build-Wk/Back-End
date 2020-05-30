@@ -33,8 +33,10 @@ module.exports = {
       },
     },
     migrations: {
-      directory: './data/migrations-test',
-      tableName: 'db_migrations-test',
+      directory: './data/migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
     },
   },
 
