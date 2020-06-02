@@ -1,10 +1,14 @@
 const supertest = require('supertest');
 const server = require('../api/server.js');
+const db= require('../data/db_config.js');
+
+// run npx knex migrate:latest --env=testing
+// run npx knex seed:run --env=testing
 
 // call this hook to refresh seed data
 // especially when making a POST req
 beforeEach(async () => {
-    await db.seed.run();
+    // await db.seed.run();
 });
 
 // this stops from keeping knex connected to db
@@ -29,15 +33,15 @@ describe('Auth integration tests', () => {
         expect(res.body.username).toBe('the_flash');
     });
 
-    // it('POST /api/auth/login', async () => {
-    //     const payload = {
-    //         username: '',
-    //         password: '',
-    //     };
-    //     const res = await supertest(server).post('/api/auth/login').send(payload);
-    //     // console.log(res);
-    //     expect(res.statusCode).toBe(200);
-    //     expect(res.type).toBe('application/json');
-    //     expect(res.body.message).toMatch('');
-    // });
+    it('POST /api/auth/login', async () => {
+        const payload = {
+            username: 'the_flash',
+            password: 'abc123',
+        };
+        const res = await supertest(server).post('/api/auth/login').send(payload)
+        // console.log(res);
+        expect(res.statusCode).toBe(200);
+        expect(res.type).toBe('application/json');
+        expect(res.body.message).toMatch('Welcome the_flash!');
+    });
 });
